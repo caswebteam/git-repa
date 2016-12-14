@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'>
+	<title>Document</title>
+</head>
+<body>
+<script>
+	function A(a, b) {
+		this.a = a;
+		this.b = b;
+	}
+
+	A.prototype.goA = function(n) {
+		this.a += n;
+		console.log(this.a + '  ' + this.b);
+	};
+
+	function B(b) {
+		A.apply(this, arguments);
+	}
+
+	B.prototype = Object.create(A.prototype);
+	B.prototype.constructor = B;
+
+	B.prototype.goB = function(n) {
+		this.b += n;
+		console.log(this.a + '  ' + this.b);
+	};
+
+	var cb = new B(3, 2);
+	cb.goA(2);
+	console.dir(cb);
+
+	alert(B instanceof A);
+
+
+
+</script>
+</body>
+</html>
